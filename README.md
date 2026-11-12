@@ -10,7 +10,7 @@
 
 ტექნოლოგიები: **Python 3.12, Flask, Pytest, Git, GitHub, GitHub Actions, Vercel, Python logging**.
 
-**Production URL:** `https://REPLACE-WITH-YOUR-REAL-VERCEL-URL.vercel.app` — შეცვალე რეალური URL-ით.
+**Production URL:** `https://devops-midterm-calculator.vercel.app/` 
 
 ## 2. ლოკალურად გაშვება
 
@@ -61,8 +61,6 @@ Workflow ავტომატურად ირთვება `main`/`dev` �
 - `VERCEL_ORG_ID` — `.vercel/project.json`-ის `orgId`.
 - `VERCEL_PROJECT_ID` — `.vercel/project.json`-ის `projectId`.
 
-**არასოდეს** ატვირთო `.vercel/`, `.env`, ტოკენები ან პაროლები GitHub-ზე. `vercel.json`-ში `git.deploymentEnabled: false` გამორთავს პარალელურ Git-ინტეგრაციის deployment-ებს, რათა გაშვებაზე პასუხისმგებელი იყოს GitHub Actions.
-
 ## 6. Workflow diagram
 
 ```mermaid
@@ -94,7 +92,7 @@ Get-Content logs/health_check.log
 
 ## 8. მტკიცებულებები (Screenshots)
 
-**ამ სამმა სურათმა შენს რეალურ გაშვებას უნდა ასახავდეს.** გადაიღე `Win + Shift + S`, შეინახე ქვემოთ მოცემული სახელებით `screenshots/` საქაღალდეში და Push გაუკეთე `main`-ზე.
+
 
 ### 8.1. წარმატებული სამსაფეხურიანი Pipeline
 
@@ -122,16 +120,11 @@ VS Code-ის ტერმინალში `python -m pytest -v` წარმ
 
 ### 8.4. Health Check-ის ლოგი (დამატებითი მტკიცებულება)
 
-გადაიღე `Get-Content logs/health_check.log`-ის შედეგი ან Actions-ში Health Check job-ის წარმატებული ლოგი.
 
 ![Health check logs](screenshots/health-check.png)
 
 *კომენტარი: ხელმისაწვდომობის შემოწმება დასრულდა HTTP 200 სტატუსით და ჩანაწერით log-ში.*
 
-**შენიშვნა:** სანამ რეალურ სურათებს არ დაამატებ, ზემოთ მოცემული `![](...)` ბმულები GitHub-ზე ცარიელი/გატეხილი გამოჩნდება; დასრულებულ დოკუმენტაციად არ ითვლება.
 
-## 9. საბოლოო ჩასაბარებელი
 
-საჯარო GitHub რეპოზიტორიის ბმული: https://github.com/nodotavzarashvili/devops-midterm-project-dev
 
-დარწმუნდი, რომ: `main`/`dev` ორივე არსებობს; `main`-ის Pipeline-ს სამივე მწვანე Job აქვს; Vercel URL მუშაობს; Health Check-ს ლოგი აქვს; README-ში სქრინშოტები ჩანს; GitHub რეპოზიტორია Public არის.
