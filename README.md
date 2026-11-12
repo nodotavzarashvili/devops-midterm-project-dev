@@ -1,118 +1,137 @@
-## DevOps Project
+# DevOps Midterm Project — Flask Calculator
 
-ეს არის Flask-ზე გაკეთებული მარტივი დავალებების API.
-აქვს დავალებების სია და ფუნქცია, რომელიც ითვლის რამდენი დავალებაა
-დასრულებული, მიმდინარე და შესასრულებელი.
+**Repository:** https://github.com/nodotavzarashvili/devops-midterm-project-dev
 
-დავალებები ინახება Python-ის სიაში. გამოყენებულია Flask, pytest,
-GitHub Actions და Vercel.
+> **Before submission:** Replace the placeholder deployment URL below with the real Vercel URL and add your **own genuine** screenshots to `screenshots/`. Broken screenshot links are not sufficient evidence.
 
-აპლიკაცია: https://devops-midterm-project.vercel.app
+## 1. პროექტის აღწერა
 
-აპლიკაცია აბრუნებს დავალებების სიას, ითვლის მათ სტატისტიკას
-და აქვს ჯანმრთელობის შემოწმების მისამართი.
+**DevOps Calculator** არის Flask-ის მარტივი ვებაპლიკაცია, რომელიც ასრულებს ოთხ არითმეტიკულ ოპერაციას: მიმატება, გამოკლება, გამრავლება და გაყოფა. შეცდომებს ამოწმებს (მაგ., ნულზე გაყოფა). `calculator.py` შეიცავს ბიზნესლოგიკას, `app.py` — HTTP მარშრუტებს, `templates/index.html` — მომხმარებლის ინტერფეისს.
 
-## ტესტები
-```
-ტესტები იშვება ბრძანებით:
-python -m pytest -v
-```
+ტექნოლოგიები: **Python 3.12, Flask, Pytest, Git, GitHub, GitHub Actions, Vercel, Python logging**.
 
-სულ არის 8 სატესტო შემთხვევა. მოწმდება აპლიკაციის მისამართები,
-მათი პასუხები და არარსებულ მისამართზე დაბრუნებული 404 სტატუსი.
+**Production URL:** `https://REPLACE-WITH-YOUR-REAL-VERCEL-URL.vercel.app` — შეცვალე რეალური URL-ით.
 
-დავალებების დათვლის ფუნქცია ცალკეც იტესტება:
-ცარიელი სიით, ორი დასრულებული დავალებით და სხვადასხვა სტატუსის
-მქონე დავალებებით. ამისთვის გამოყენებულია pytest.mark.parametrize.
+## 2. ლოკალურად გაშვება
 
-## ბრენჩები და პაიპლაინი
+Windows PowerShell:
 
-პროექტს აქვს main და dev ბრენჩები.
-ცვლილებები კეთდება dev-ზე და Pull Request-ით გადადის main-ში.
-
-პაიპლაინის ფაილია `.github/workflows/cicd-pipeline.yml`.
-ის ავტომატურად იშვება main და dev ბრენჩებზე push-ისას
-და ამ ბრენჩებზე Pull Request-ის შექმნისა და განახლებისას.
-
-პაიპლაინი შედგება სამი ეტაპისგან:
-
-1. Build აყენებს Python 3.12-ს და საჭირო ბიბლიოთეკებს,
-   შემდეგ ამოწმებს Python ფაილების სინტაქსს.
-2. Test — უშვებს pytest ტესტებს.
-3. Deploy ტვირთავს აპლიკაციას Vercel-ზე, ამოწმებს მის
-   მუშაობას და ინახავს შემოწმების ლოგს.
-
-ეტაპები ერთმანეთზეა დამოკიდებული needs პარამეტრით.
-თუ Build ან Test ვერ გაივლის, Deploy არ შესრულდება.
-
-Deploy იშვება მხოლოდ main-ზე push-ისას.
-ამიტომ dev-ზე და Pull Request-ზე მისი Skipped სტატუსი ნორმალურია.
-Pull Request-ის main-ში merge-ის შემდეგ დეპლოიც სრულდება.
-Vercel საბოლოო build-ს დეპლოის დროს აკეთებს.
-
-## პროცესის დიაგრამა
-
-
-![Workflow diagram](docs/screenshots/workflow.png)
-
-## Vercel
-
-დეპლოისთვის GitHub-ის Repository secrets-ში დამატებულია:
-
-- VERCEL_TOKEN
-- VERCEL_ORG_ID
-- VERCEL_PROJECT_ID
-
-ეს მნიშვნელობები გამოიყენება ავტორიზაციისთვის და შესაბამისი
-Vercel პროექტის ასარჩევად. თვითონ მნიშვნელობები კოდში არ წერია.
-```თვოთონ json ფაილი დამჭირდა რომ ვერცელზე ყოფილიყო და ბ გზით წავსულიყავი```
-vercel.json მიუთითებს app_core.py ფაილს.
-Vercel-ის დამოუკიდებელი Git-დეპლოიმენტი გამორთულია,
-რადგან დეპლოი GitHub Actions-იდან სრულდება ტესტების გავლის შემდეგ.
-
-## ჯანმრთელობის შემოწმება
-
-შემოწმების ხელით გასაშვებად:
-
-```bash
-python health_check.py
+```powershell
+py -3.12 -m venv venv
+.\venv\Scripts\python.exe -m pip install -r requirements-dev.txt
+.\venv\Scripts\python.exe app.py
 ```
 
-სკრიპტი ამოწმებს ამ მისამართს:
-https://devops-midterm-project.vercel.app/api/health
+თუ Python 3.12 არ არის, შეგიძლია გამოიყენო `py -m venv venv` (Python 3.12+ რეკომენდებულია).
 
+ბრაუზერში გახსენი `http://127.0.0.1:5000`, ჯანმრთელობის შესამოწმებლად — `http://127.0.0.1:5000/health`.
 
-შედეგი და შემოწმების დრო იწერება uptime_status.log ფაილში.
-წარმატებისას სკრიპტი სრულდება კოდით 0, შეცდომისას — კოდით 1.
+## 3. Unit Test-ები
 
-რეპოზიტორიის მთავარ საქაღალდეში არის ხელით გაშვებული
-შემოწმების ლოგი. პაიპლაინში სკრიპტი დეპლოის შემდეგაც იშვება
-და მისი ლოგი ინახება Actions-ის Artifacts სექციაში,!!!!!!
-სახელით health-check-log.
+```powershell
+.\venv\Scripts\python.exe -m pytest -v
+```
 
-ლოგის შენახვის ნაბიჯს აქვს if: always(), ამიტომ შემოწმების
-შეცდომის შემთხვევაშიც ცდილობს არსებული ლოგის შენახვას.
-რეპოზიტორიაში არსებული ლოგი ავტომატურად არ ახლდება.
+`tests/test_calculator.py` ამოწმებს მათემატიკურ ოპერაციებს, შეცდომებსა და ვალიდაციას. `tests/test_app.py` ამოწმებს HTTP პასუხებს. ტესტების წარმატებით დასრულება უნდა აჩვენებდეს `11 passed` (ფაქტობრივი შედეგი შეამოწმე ტერმინალში).
 
-შემოწმება სრულდება დეპლოის შემდეგ ან ხელით გაშვებისას.
-ავტომატური Rollback დამატებული არ არის.
+## 4. Git და ბრენჩები
 
-## სქრინშოტები
+- `dev`: ცვლილებები, ტესტირება და Pull Request.
+- `main`: შემოწმებული სამუშაო ვერსია, რომელიც Vercel-ზე განთავსდება.
 
-### პაიპლაინი
+რეკომენდებული პროცესი: `dev` → Push → Build/Test → Pull Request → Merge into `main` → Build/Test/Deploy.
 
-main ბრენჩზე სამივე ეტაპი წარმატებით დასრულდა.
+## 5. CI/CD Pipeline — Build, Test, Deploy
 
-![Pipeline](docs/screenshots/pipeline.png)
+GitHub Actions-ის კონფიგურაციაა `.github/workflows/pipeline.yml`.
 
-### ტესტები
+| Job | მოქმედება |
+| --- | --- |
+| **Build** | checkout, Python 3.12, dependencies-ის დაყენება, Python ფაილების კომპილაცია |
+| **Test** | `pytest -v` — Unit და API ტესტები |
+| **Deploy** | მხოლოდ `main`-ზე push-ის შემდეგ Vercel CLI-ით production deployment; შემდგომ Health Check და log artifact |
 
-ტესტების გაშვება და რვა წარმატებული შედეგი.
+Workflow ავტომატურად ირთვება `main`/`dev` ბრენჩებზე Push-ისას და ამ ბრენჩებზე Pull Request-ების დროს. PR-ზე და `dev`-ის Push-ზე Deploy ეტაპი მიზანმიმართულად გამოტოვებულია. სამივე წარმატებული job უნდა ჩანდეს **`main`-ზე Push-ის** workflow-ში.
 
-![Tests](docs/screenshots/tests.png)
+### GitHub Actions secrets
 
-### აპლიკაცია
+`Settings → Secrets and variables → Actions → New repository secret`:
 
-Vercel-ზე გაშვებული აპლიკაციის სტატისტიკის გვერდი.
+- `VERCEL_TOKEN` — Vercel-ის Access Token.
+- `VERCEL_ORG_ID` — `.vercel/project.json`-ის `orgId`.
+- `VERCEL_PROJECT_ID` — `.vercel/project.json`-ის `projectId`.
 
-![Application](docs/screenshots/application.png)
+**არასოდეს** ატვირთო `.vercel/`, `.env`, ტოკენები ან პაროლები GitHub-ზე. `vercel.json`-ში `git.deploymentEnabled: false` გამორთავს პარალელურ Git-ინტეგრაციის deployment-ებს, რათა გაშვებაზე პასუხისმგებელი იყოს GitHub Actions.
+
+## 6. Workflow diagram
+
+```mermaid
+flowchart TD
+  A[Developer changes code on dev] --> B[Push / Pull Request]
+  B --> C[GitHub Actions: Build]
+  C -->|success| D[GitHub Actions: Test]
+  D -->|failure| X[Stop and fix code]
+  D -->|success on PR| E[Review and merge into main]
+  E --> F[Push to main]
+  F --> G[Build]
+  G --> H[Test]
+  H -->|success| I[Deploy to Vercel]
+  I --> J[HTTP /health check]
+  J --> K[Write logs/health_check.log]
+  K --> L[Upload log as Actions artifact]
+```
+
+## 7. Monitoring & Health Check
+
+ლოკალური შემოწმება (აპლიკაცია ამ დროს გაშვებული უნდა იყოს):
+
+```powershell
+.\venv\Scripts\python.exe scripts/health_check.py http://127.0.0.1:5000/health
+Get-Content logs/health_check.log
+```
+
+სკრიპტი წერს `HEALTHY`, `UNHEALTHY`, HTTP სტატუსსა და დროს `logs/health_check.log`-ში. CI-ის Deploy job ამავე სკრიპტს უშვებს Vercel-ის URL-ზე და `.log` ფაილს ტვირთავს `health-check-log` Artifact-ად (Actions → Run → Artifacts). ლოკალური `.log` Git-ში არ იტვირთება, რადგან `.gitignore` იცავს მას; CI-ის არტეფაქტი არის შენახული მტკიცებულება.
+
+## 8. მტკიცებულებები (Screenshots)
+
+**ამ სამმა სურათმა შენს რეალურ გაშვებას უნდა ასახავდეს.** გადაიღე `Win + Shift + S`, შეინახე ქვემოთ მოცემული სახელებით `screenshots/` საქაღალდეში და Push გაუკეთე `main`-ზე.
+
+### 8.1. წარმატებული სამსაფეხურიანი Pipeline
+
+GitHub → Actions → `DevOps Pipeline` → `main` ბრენჩის წარმატებული run → `Summary`. უნდა ჩანდეს **Build, Test, Deploy** მწვანედ.
+
+![Build, Test, Deploy წარმატებული pipeline](screenshots/pipeline-success.png)
+
+*კომენტარი: ყველა ძირითადი Job წარმატებით დასრულდა `main`-ზე Push-ის შემდეგ.*
+
+### 8.2. წარმატებული Unit Test-ები
+
+VS Code-ის ტერმინალში `python -m pytest -v` წარმატებული შედეგი ან GitHub Actions-ის `Test` job-ის ლოგი.
+
+![Pytest-ის წარმატებული ტესტები](screenshots/unit-tests.png)
+
+*კომენტარი: Pytest-მა შეამოწმა არითმეტიკული ფუნქციები და API-მარშრუტები.*
+
+### 8.3. მომუშავე აპლიკაცია
+
+გახსენი Vercel-ის რეალური production URL. შეიყვანე ორი რიცხვი, აირჩიე მოქმედება და დააჭირე „გამოთვლა“ — სურათზე ჩანდეს შედეგიც.
+
+![მომუშავე Calculator აპლიკაცია](screenshots/app-running.png)
+
+*კომენტარი: Vercel-ზე განთავსებული აპლიკაცია აბრუნებს გამოთვლის შედეგს.*
+
+### 8.4. Health Check-ის ლოგი (დამატებითი მტკიცებულება)
+
+გადაიღე `Get-Content logs/health_check.log`-ის შედეგი ან Actions-ში Health Check job-ის წარმატებული ლოგი.
+
+![Health check logs](screenshots/health-check.png)
+
+*კომენტარი: ხელმისაწვდომობის შემოწმება დასრულდა HTTP 200 სტატუსით და ჩანაწერით log-ში.*
+
+**შენიშვნა:** სანამ რეალურ სურათებს არ დაამატებ, ზემოთ მოცემული `![](...)` ბმულები GitHub-ზე ცარიელი/გატეხილი გამოჩნდება; დასრულებულ დოკუმენტაციად არ ითვლება.
+
+## 9. საბოლოო ჩასაბარებელი
+
+საჯარო GitHub რეპოზიტორიის ბმული: https://github.com/nodotavzarashvili/devops-midterm-project-dev
+
+დარწმუნდი, რომ: `main`/`dev` ორივე არსებობს; `main`-ის Pipeline-ს სამივე მწვანე Job აქვს; Vercel URL მუშაობს; Health Check-ს ლოგი აქვს; README-ში სქრინშოტები ჩანს; GitHub რეპოზიტორია Public არის.
