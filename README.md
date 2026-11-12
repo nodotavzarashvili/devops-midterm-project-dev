@@ -2,7 +2,7 @@
 
 **Repository:** https://github.com/nodotavzarashvili/devops-midterm-project-dev
 
-> **Before submission:** Replace the placeholder deployment URL below with the real Vercel URL and add your **own genuine** screenshots to `screenshots/`. Broken screenshot links are not sufficient evidence.
+
 
 ## 1. პროექტის აღწერა
 
