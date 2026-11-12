@@ -1,10 +1,11 @@
+venv/
+.venv/
 __pycache__/
 .pytest_cache/
-*.pyc
-.venv/
-venv/
-.idea/
-*.iml
+*.py[cod]
 .vercel/
 .env
 .env.*
+!.env.example
+logs/*.log
+.DS_Store

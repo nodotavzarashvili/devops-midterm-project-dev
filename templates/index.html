@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ka">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DevOps Calculator · Flask + CI/CD</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="container">
+    <div class="eyebrow">PYTHON · FLASK · GITHUB ACTIONS · VERCEL</div>
+    <h1>DevOps Calculator</h1>
+    <p class="lead">მარტივი ვებაპლიკაცია ავტომატური ტესტირებითა და განთავსებით.</p>
+    <section class="calculator" aria-label="კალკულატორი">
+      <label for="first">პირველი რიცხვი</label>
+      <input id="first" type="number" step="any" value="12" required>
+      <label for="second">მეორე რიცხვი</label>
+      <input id="second" type="number" step="any" value="3" required>
+      <label for="operation">მოქმედება</label>
+      <select id="operation">
+        <option value="add">მიმატება (+)</option>
+        <option value="subtract">გამოკლება (−)</option>
+        <option value="multiply">გამრავლება (×)</option>
+        <option value="divide">გაყოფა (÷)</option>
+      </select>
+      <button type="button" id="calculate">გამოთვლა</button>
+      <div class="answer" role="status" aria-live="polite">
+        <span>შედეგი</span>
+        <strong id="result">—</strong>
+      </div>
+      <p id="error" class="error" role="alert"></p>
+    </section>
+    <p class="footnote">Health endpoint: <a href="/health" target="_blank" rel="noopener">/health</a></p>
+  </main>
+  <script>
+    document.getElementById('calculate').addEventListener('click', async () => {
+      const error = document.getElementById('error');
+      const output = document.getElementById('result');
+      error.textContent = '';
+      const first = document.getElementById('first').value;
+      const second = document.getElementById('second').value;
+      if (first.trim() === '' || second.trim() === '') {
+        output.textContent = '—';
+        error.textContent = 'შეიყვანე ორივე რიცხვი.';
+        return;
+      }
+      try {
+        const response = await fetch('/api/calculate', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            a: Number(first), b: Number(second),
+            operation: document.getElementById('operation').value
+          })
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || 'შეცდომა');
+        output.textContent = String(data.result);
+      } catch (err) {
+        output.textContent = '—';
+        error.textContent = err.message;
+      }
+    });
+  </script>
+</body>
+</html>
